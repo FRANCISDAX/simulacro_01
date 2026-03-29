@@ -9,6 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,9 @@ public class Proveedor implements Serializable{
     @Column(nullable=false,unique=true)
     private String dni;
 
+    @NotNull
+    @Min(0)
+    @Max(1)
     private Integer estado;
 
     @Column(updatable=false)
