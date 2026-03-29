@@ -100,13 +100,23 @@ public class ProveedorServiceImpl implements ProveedorService{
     // 🌐 Lista proveedores por tipo.
     @Override
     public List<Proveedor> listarPorTipo(Long idTipo) {
-        return repo.findByTipo_IdTipo(idTipo);
+        List<Proveedor> lista = repo.findByTipo_IdTipo(idTipo);
+        if (lista.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existen proveedores para el tipo con ID: " + idTipo);
+        }
+
+        return lista;
     }
 
     // 🌍 Lista proveedores por país.
     @Override
     public List<Proveedor> listarPorPais(Long idPais) {
-        return repo.findByPais_IdPais(idPais);
+        List<Proveedor> lista = repo.findByPais_IdPais(idPais);
+        if (lista.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existen proveedores para el país con ID: " + idPais);
+        }
+
+        return lista;
     }
 
 }
