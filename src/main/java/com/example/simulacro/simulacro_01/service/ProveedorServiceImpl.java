@@ -3,7 +3,9 @@ package com.example.simulacro.simulacro_01.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.simulacro.simulacro_01.entity.Proveedor;
 import com.example.simulacro.simulacro_01.repository.ProveedorRepository;
@@ -27,7 +29,7 @@ public class ProveedorServiceImpl implements ProveedorService{
     @Override
     public Proveedor buscarPorId(Long id) {
         return repo.findById(id)
-            .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Proveedor no encontrado"));
     }
 
     // 💾 Guardar.
@@ -35,12 +37,12 @@ public class ProveedorServiceImpl implements ProveedorService{
     public Proveedor guardar(Proveedor proveedor) {
         // 🔒 Validar nombre duplicado
         if(repo.existsByNombreIgnoreCase(proveedor.getNombre())){
-            throw new RuntimeException("El nombre ya existe");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre ya existe");
         }
 
         // 🔒 Validar DNI duplicado
         if(repo.existsByDni(proveedor.getDni())){
-            throw new RuntimeException("El DNI ya existe");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El DNI ya existe");
         }
 
         return repo.save(proveedor);
@@ -53,12 +55,12 @@ public class ProveedorServiceImpl implements ProveedorService{
 
         // 🔒 Validar nombre duplicado (excluyendo el mismo registro)
         if(repo.existsByNombreAndIdProveedorNot(proveedor.getNombre(), id)){
-            throw new RuntimeException("El nombre ya existe");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre ya existe");
         }
 
         // 🔒 Validar DNI duplicado
         if(repo.existsByDniAndIdProveedorNot(proveedor.getDni(), id)){
-            throw new RuntimeException("El DNI ya existe");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El DNI ya existe");
         }
 
         // ✏️ Actualizar campos
@@ -74,7 +76,9 @@ public class ProveedorServiceImpl implements ProveedorService{
     // 🗑️ Eliminar.
     @Override
     public void eliminar(Long id) {
-        Proveedor proveedor = buscarPorId(id);
+        Proveedor proveedor = repo.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Proveedor no encontrado"));
+
         repo.delete(proveedor);
     }
 
@@ -82,7 +86,7 @@ public class ProveedorServiceImpl implements ProveedorService{
     @Override
     public List<Proveedor> listarPorEstado(Integer estado) {
         if(estado != 0 && estado != 1){
-            throw new RuntimeException("Estado inválido, solo 0 o 1");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estado inválido, solo 0 o 1");
         }
         return repo.findByEstado(estado);
     }
