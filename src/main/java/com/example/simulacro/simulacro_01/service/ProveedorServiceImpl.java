@@ -75,13 +75,15 @@ public class ProveedorServiceImpl implements ProveedorService{
     @Override
     public void eliminar(Long id) {
         Proveedor proveedor = buscarPorId(id);
-
         repo.delete(proveedor);
     }
 
     // 📋 Lista proveedores por estado (0 = inactivo, 1 = activo).
     @Override
     public List<Proveedor> listarPorEstado(Integer estado) {
+        if(estado != 0 && estado != 1){
+            throw new RuntimeException("Estado inválido, solo 0 o 1");
+        }
         return repo.findByEstado(estado);
     }
 
