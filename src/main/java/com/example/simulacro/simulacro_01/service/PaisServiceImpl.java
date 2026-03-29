@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.simulacro.simulacro_01.entity.Pais;
-import com.example.simulacro.simulacro_01.entity.Tipo;
 import com.example.simulacro.simulacro_01.repository.PaisRepository;
 
 import jakarta.transaction.Transactional;
