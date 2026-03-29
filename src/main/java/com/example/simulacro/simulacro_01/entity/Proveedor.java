@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -16,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Schema(description = "Entidad que representa un proveedor")
 @Entity
 @Table(name="proveedor")
 @Getter @Setter
@@ -24,15 +26,20 @@ public class Proveedor implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Schema(description = "ID del proveedor", example = "1")
     private Long idProveedor;
+
+    @Schema(description = "Nombre del proveedor", example = "CiberSoft SAC")
     private String nombre;
 
     @Column(nullable=false,unique=true)
+    @Schema(description = "DNI único del proveedor", example = "12345678")
     private String dni;
 
     @NotNull
     @Min(0)
     @Max(1)
+    @Schema(description = "Estado (1=Activo, 0=Inactivo)", example = "1")
     private Integer estado;
 
     @Column(updatable=false)
