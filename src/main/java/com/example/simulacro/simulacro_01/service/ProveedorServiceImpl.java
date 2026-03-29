@@ -79,4 +79,28 @@ public class ProveedorServiceImpl implements ProveedorService{
         repo.delete(proveedor);
     }
 
+    // 📋 Lista proveedores por estado (0 = inactivo, 1 = activo).
+    @Override
+    public List<Proveedor> listarPorEstado(Integer estado) {
+        return repo.findByEstado(estado);
+    }
+
+    // 🔎 Búsqueda por nombre (contiene texto, sin importar mayúsculas).
+    @Override
+    public List<Proveedor> buscarPorNombre(String nombre) {
+        return repo.findByNombreContainingIgnoreCase(nombre);
+    }
+
+    // 🌐 Lista proveedores por tipo.
+    @Override
+    public List<Proveedor> listarPorTipo(Long idTipo) {
+        return repo.findByTipo_IdTipo(idTipo);
+    }
+
+    // 🌍 Lista proveedores por país.
+    @Override
+    public List<Proveedor> listarPorPais(Long idPais) {
+        return repo.findByPais_IdPais(idPais);
+    }
+
 }

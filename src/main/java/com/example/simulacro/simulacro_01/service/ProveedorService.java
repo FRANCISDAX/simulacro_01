@@ -20,5 +20,17 @@ public interface ProveedorService {
 
     // 🗑️ Elimina un proveedor por su ID.
     void eliminar(Long id);
+
+    // 📋 Lista proveedores por estado (0 = inactivo, 1 = activo)
+    List<Proveedor> listarPorEstado(Integer estado);
+
+    // 🔎 Búsqueda por nombre (contiene texto, sin importar mayúsculas)
+    List<Proveedor> buscarPorNombre(String nombre);
+
+    // 🌐 Lista proveedores por tipo
+    List<Proveedor> listarPorTipo(Long idTipo);
+
+    // 🌍 Lista proveedores por país
+    List<Proveedor> listarPorPais(Long idPais);
     
 }
