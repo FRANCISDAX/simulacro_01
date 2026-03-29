@@ -15,7 +15,9 @@ import com.example.simulacro.simulacro_01.entity.Docente;
 import com.example.simulacro.simulacro_01.service.DocenteService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.apachecommons.CommonsLog;
 
+@CommonsLog
 @RestController
 @RequestMapping("/rest/docente")
 @Tag(name = "Docente", description = "Operaciones sobre docente")
@@ -26,13 +28,17 @@ public class DocenteController {
 	
 	@PostMapping("/registrar")
 	public ResponseEntity<Docente> registrarDocente(@RequestBody Docente docente){
+		log.info(">>> registrarDocente [ini] : " + docente);
 		Docente obj = service.registrarDocente(docente);
+		log.info(">>> registrarDocente [fin] : " + obj);
 		return ResponseEntity.ok(obj);
 	}
 	
 	@GetMapping("/porDni/{filtro}")
 	public ResponseEntity<List<Docente>> listaDocentePorDni(@PathVariable("filtro") String parametro){
+		log.info(">>> listaDocentePorDni [ini] : " + parametro);
 		List<Docente> lista = service.listaDocentePorDni(parametro);
+		log.info(">>> listaDocentePorDni [fin] : " + lista.size());
 		return ResponseEntity.ok(lista);
 	}
     
