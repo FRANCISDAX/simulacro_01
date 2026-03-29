@@ -74,4 +74,44 @@ public class ProveedorController {
         return ResponseEntity.noContent().build();
     }
 
+    // 📋 Listar por estado
+    @Operation(summary = "Listar proveedores por estado")
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<List<Proveedor>> listarPorEstado(@PathVariable Integer estado) {
+        log.info(">>> ListarPorEstado [INI] Estado: " + estado);
+        List<Proveedor> lista = service.listarPorEstado(estado);
+        log.info(">>> ListarPorEstado [FIN] Total: " + lista.size());
+        return ResponseEntity.ok(lista);
+    }
+
+    // 🔎 Buscar por nombre
+    @Operation(summary = "Buscar proveedores por nombre")
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Proveedor>> buscarPorNombre(@RequestParam String nombre) {
+        log.info(">>> BuscarPorNombre [INI] Nombre: " + nombre);
+        List<Proveedor> lista = service.buscarPorNombre(nombre);
+        log.info(">>> BuscarPorNombre [FIN] Total: " + lista.size());
+        return ResponseEntity.ok(lista);
+    }
+
+    // 🌐 Listar por tipo
+    @Operation(summary = "Listar proveedores por tipo")
+    @GetMapping("/tipo/{idTipo}")
+    public ResponseEntity<List<Proveedor>> listarPorTipo(@PathVariable Long idTipo) {
+        log.info(">>> ListarPorTipo [INI] idTipo: " + idTipo);
+        List<Proveedor> lista = service.listarPorTipo(idTipo);
+        log.info(">>> ListarPorTipo [FIN] Total: " + lista.size());
+        return ResponseEntity.ok(lista);
+    }
+
+    // 🌍 Listar por país
+    @Operation(summary = "Listar proveedores por país")
+    @GetMapping("/pais/{idPais}")
+    public ResponseEntity<List<Proveedor>> listarPorPais(@PathVariable Long idPais) {
+        log.info(">>> ListarPorPais [INI] idPais: " + idPais);
+        List<Proveedor> lista = service.listarPorPais(idPais);
+        log.info(">>> ListarPorPais [FIN] Total: " + lista.size());
+        return ResponseEntity.ok(lista);
+    }
+
 }
