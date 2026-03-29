@@ -6,7 +6,7 @@ import com.example.simulacro.simulacro_01.entity.Tipo;
 
 public interface TipoService {
 
-     // 📋 Obtiene la lista completa de tipos.
+    // 📋 Obtiene la lista completa de tipos.
     List<Tipo> listarTodos();
 
     // 🔍 Busca un tipo por su ID.
