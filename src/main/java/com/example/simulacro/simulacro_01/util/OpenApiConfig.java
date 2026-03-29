@@ -13,7 +13,7 @@ public class OpenApiConfig {
     public OpenAPI apiInfo() {
         return new OpenAPI()
             .info(new Info()
-                .title("API de Proveedores, Docentes, Pais y Tipo")
+                .title("API de Proveedores, Pais y Tipo")
                 .description("Servicios REST para gestión de varias Entidades")
                 .version("v1.0"));
     }
