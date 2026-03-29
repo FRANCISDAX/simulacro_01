@@ -27,21 +27,30 @@ public class ProveedorController {
     @Operation(summary = "Listar proveedores", description = "Obtiene todos los proveedores registrados")
     @GetMapping
     public ResponseEntity<List<Proveedor>> listar() {
-        return ResponseEntity.ok(service.listar());
+        log.info(">>> ListaTodosLosProveedores [INI]");
+        List<Proveedor> lista = service.listarTodos();
+        log.info(">>> ListaTodosLosProveedores [FIN] - Total : " + lista.size());
+        return ResponseEntity.ok(lista);
     }
 
     // 🔍 Buscar proveedor por ID.
     @Operation(summary = "Buscar proveedor por ID")
     @GetMapping("/{id}")
     public ResponseEntity<Proveedor> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarPorId(id));
+        log.info(">>> BuscarProveedorPorId [INI] ID: " + id);
+        Proveedor proveedor = service.buscarPorId(id);
+        log.info(">>> BuscarProveedorPorId [FIN] ID: " + id);
+        return ResponseEntity.ok(proveedor);
     }
 
     // 💾 Registrar nuevo proveedor.
     @Operation(summary = "Registrar proveedor")
     @PostMapping
     public ResponseEntity<Proveedor> guardar(@Valid @RequestBody Proveedor proveedor) {
-        return ResponseEntity.status(201).body(service.guardar(proveedor));
+        log.info(">>> RegistrarProveedor [INI] Nombre: " + proveedor.getNombre());
+        Proveedor nuevo = service.guardar(proveedor);
+        log.info(">>> RegistrarProveedor [FIN] ID generado: " + nuevo.getIdProveedor());
+        return ResponseEntity.status(201).body(nuevo);
     }
 
     // ✏️ Actualizar proveedor existente.
@@ -49,14 +58,19 @@ public class ProveedorController {
     @PutMapping("/{id}")
     public ResponseEntity<Proveedor> actualizar(@PathVariable Long id,
         @Valid @RequestBody Proveedor proveedor) {
-        return ResponseEntity.ok(service.actualizar(id, proveedor));
+        log.info(">>> ActualizarProveedor [INI] ID: " + id);
+        Proveedor actualizado = service.actualizar(id, proveedor);
+        log.info(">>> ActualizarProveedor [FIN] ID: " + id);
+        return ResponseEntity.ok(actualizado);
     }
 
     // 🗑️ Eliminar proveedor.
     @Operation(summary = "Eliminar proveedor")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        log.info(">>> EliminarProveedor [INI] ID: " + id);
         service.eliminar(id);
+        log.info(">>> EliminarProveedor [FIN] ID: " + id);
         return ResponseEntity.noContent().build();
     }
 

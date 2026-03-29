@@ -19,8 +19,8 @@ public class ProveedorServiceImpl implements ProveedorService{
     
     // 📋 Listar todos.
     @Override
-    public List<Proveedor> listar() {
-        return repo.findAll();
+    public List<Proveedor> listarTodos() {
+        return repo.listarConRelaciones();
     }
 
     // 🔍 Buscar por ID.

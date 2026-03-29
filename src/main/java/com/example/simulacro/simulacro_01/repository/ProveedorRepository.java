@@ -3,6 +3,7 @@ package com.example.simulacro.simulacro_01.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.example.simulacro.simulacro_01.entity.Proveedor;
 
@@ -25,6 +26,7 @@ public interface ProveedorRepository extends JpaRepository<Proveedor, Long>{
     // 🌍 Lista proveedores por país (relación ManyToOne)
     List<Proveedor> findByPais_IdPais(Long idPais);
     // 🔤 Lista todos los proveedores ordenados por nombre ascendente
-    List<Proveedor> findAllByOrderByNombreAsc();
+    @Query("SELECT p FROM Proveedor p JOIN FETCH p.tipo JOIN FETCH p.pais ORDER BY p.nombre ASC")
+    List<Proveedor> listarConRelaciones();
      
 }

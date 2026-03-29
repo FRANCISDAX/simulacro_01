@@ -7,7 +7,7 @@ import com.example.simulacro.simulacro_01.entity.Proveedor;
 public interface ProveedorService {
 
     // 📋 Obtiene la lista completa de proveedores.
-    List<Proveedor> listar();
+    List<Proveedor> listarTodos();
 
     // 🔍 Busca un proveedor por su ID.
     Proveedor buscarPorId(Long id);
